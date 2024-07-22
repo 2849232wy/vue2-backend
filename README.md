@@ -5,7 +5,7 @@ password: admin
 ```
 npm install
 ```
-
+出现冲突的部分
 ### Compiles and hot-reloads for development
 ```
 npm run serve
