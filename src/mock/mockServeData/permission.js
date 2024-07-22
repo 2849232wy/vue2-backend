@@ -60,6 +60,23 @@ export default {
               icon: "icon-shangpin",
               component: "Goods",
             },
+            {
+              path: "user",
+              name: "user",
+              title: "用户管理",
+              component: "User",
+              icon: "icon-yonghu",
+              operatePermission: [{
+                name: "删除用户",
+                key: "delete"
+              },{
+                name: "查看用户",
+                key: "show"
+              }, {
+                name: "编辑用户",
+                key: "edit"
+              }]
+            },
           ],
           token: Mock.Random.guid(),
           message: "获取成功",

@@ -5,7 +5,12 @@
 </template>
 
 <script>
-  export default {};
+  import { initDynamicRoutes } from "@/router";
+  export default {
+    created() {
+      initDynamicRoutes();
+    },
+  };
 </script>
 
 <style lang="scss">

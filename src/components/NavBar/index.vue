@@ -49,12 +49,12 @@
   export default {
     computed: {
       routes() {
-        console.log(this.$router);
         return this.addFatherPathForRoutes(
           JSON.parse(JSON.stringify(this.$router.options.routes[0].children))
         );
       },
     },
+    
     methods: {
       addFatherPathForRoutes(routes, fatherPath = "") {
         for (let route of routes) {

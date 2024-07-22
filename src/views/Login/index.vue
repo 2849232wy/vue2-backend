@@ -34,6 +34,7 @@
 <script>
   import { login } from "@/api/index";
   import { initDynamicRoutes } from "@/router";
+  import { mapActions } from "vuex";
   export default {
     data: () => {
       return {
@@ -53,6 +54,7 @@
       };
     },
     methods: {
+      ...mapActions("permissionStore", ["setPermission"]),
       submitForm(formName) {
         this.$refs[formName].validate(async (valid) => {
           if (valid) {
@@ -62,7 +64,9 @@
                 type: "success",
                 message: "登录成功",
               });
-              initDynamicRoutes(res.data.menu);
+              this.setPermission(res.data.menu);
+              initDynamicRoutes();
+              
               this.$router.replace("/home");
             }
           } else {

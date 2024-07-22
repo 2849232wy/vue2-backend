@@ -5,18 +5,23 @@
         <el-button
           type="primary"
           @click="(isSubmitForm = !isSubmitForm) && (formType = 1)"
+          v-permission="{ action: 'add' }"
           >新增<i class="el-icon-plus el-icon--right"></i
         ></el-button>
         <el-button
           type="danger"
           @click="batchDeleteUser"
           :disabled="!(ids && ids.length > 0)"
+          v-permission="{ action: 'add' }"
           >批量删除</el-button
         >
       </div>
-      <div class="t-right">
+      <div
+        class="t-right"
+        v-permission="{ action: 'show' }"
+      >
         <el-input
-          placeholder="名称"
+          placeholder="请输入用户名"
           v-model="name"
           clearable
         >
@@ -91,6 +96,7 @@
           <el-button
             size="mini"
             @click="editUser(scope.$index, scope.row.id)"
+            v-permission="{ action: 'edit' }"
             >编辑</el-button
           >
           <el-popconfirm
@@ -101,6 +107,7 @@
               slot="reference"
               size="mini"
               type="danger"
+              v-permission="{ action: 'delete' }"
               >删除</el-button
             >
           </el-popconfirm>
@@ -177,6 +184,7 @@
         :total="total"
         :page="page"
         :limit="limit"
+        v-permission="{ action: 'show' }"
       ></Pagination>
     </div>
   </div>

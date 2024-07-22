@@ -9,6 +9,7 @@ import "@/assets/style/element-variables.scss";
 import "@/assets/font/iconfont.css";
 import "@/mock/index";
 import store from "@/store";
+import "@/dirctives";
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(ElementUI);

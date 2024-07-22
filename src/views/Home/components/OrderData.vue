@@ -3,6 +3,7 @@
     <div
       id="orderData"
       style="height: 240px; width: 100%"
+      ref="echarts"
     ></div>
   </el-card>
 </template>
@@ -16,6 +17,16 @@
         default: {},
       },
     },
+    data: () => {
+      return {
+        myChart: null,
+      };
+    },
+    mounted() {
+      window.addEventListener("resize", () => {
+        this.myChart.resize();
+      });
+    },
     watch: {
       orderData: {
         immediate: true,
@@ -23,7 +34,11 @@
         handler() {
           this.$nextTick(() => {
             if (this.orderData.data) {
-              let myChart = echarts.init(document.getElementById("orderData"));
+              if (!this.myChart) {
+                this.myChart = echarts.init(
+                  document.getElementById("orderData")
+                );
+              }
               let brands = {};
               for (let brand of this.orderData.data) {
                 for (let key in brand) {
@@ -54,8 +69,8 @@
               };
 
               // 使用刚指定的配置项和数据显示图表。
-              myChart.setOption(option);
-              myChart.resize({ width: 800, height: 240 });
+              this.myChart.setOption(option);
+              this.myChart.resize({ width: 800, height: 240 });
             }
           });
         },

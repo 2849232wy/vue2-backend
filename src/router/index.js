@@ -1,16 +1,12 @@
 import routes from "./routes";
 import vueRouter from "vue-router";
 import store from "@/store";
-const Goods = () => import("@/views/Goods/index.vue");
-const User = () => import("@/views/User/index.vue");
-const Pages1 = () => import("@/views/PagesOne/index.vue");
-const Pages2 = () => import("@/views/PagesTwo/index.vue");
 
 let MappingRoutes = {
-  Goods,
-  User,
-  Pages1,
-  Pages2,
+  Goods: () => import("@/views/Goods/index.vue"),
+  User: () => import("@/views/User/index.vue"),
+  Pages1: () => import("@/views/PagesOne/index.vue"),
+  Pages2: () => import("@/views/PagesTwo/index.vue"),
 };
 
 const router = new vueRouter({
@@ -31,17 +27,21 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-export const initDynamicRoutes = (currentRoutes) => {
+export const initDynamicRoutes = () => {
+  let currentRoutes = store.state.permissionStore.permission;
   handleDynamicRoutes(currentRoutes);
-  currentRoutes.forEach((route) => {
-    router.addRoute("layout", route);
-  });
-  console.log(router.getRoutes);
+  router.options.routes[0].children = [
+    router.options.routes[0].children[0],
+    ...currentRoutes,
+  ];
+  router.addRoutes(router.options.routes);
 };
 
 const handleDynamicRoutes = (currentRoutes) => {
   currentRoutes.forEach((element) => {
     element.component = MappingRoutes[element.component];
+    element.meta = {};
+    element.meta.operatePermission = element.operatePermission || [];
     if (element.children && element.children.length > 0) {
       handleDynamicRoutes(element.children);
     }

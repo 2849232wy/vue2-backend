@@ -27,6 +27,7 @@
   import OrderData from "./components/OrderData.vue";
   import Bar from "./components/Bar.vue";
   import Pie from "./components/Pie.vue";
+  import router from "@/router";
   export default {
     components: {
       UserData,
@@ -35,6 +36,12 @@
       OrderData,
       Bar,
       Pie,
+    },
+    beforeRouteEnter(to, from, next) {
+      next();
+      if (from.fullPath.includes("login")) {
+        router.go(0);
+      }
     },
     data: () => {
       return {

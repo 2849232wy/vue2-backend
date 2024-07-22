@@ -36,11 +36,13 @@
     },
     methods: {
       ...mapActions("tokenStore", ["deleteToken"]),
+      ...mapActions("permissionStore", ["deletePermission"]),
       changeCollapse() {
         this.$emit("changeCollapse");
       },
       async logout() {
         await this.deleteToken();
+        await this.deletePermission();
         this.$router.replace("/login");
       },
     },
