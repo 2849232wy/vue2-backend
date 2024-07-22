@@ -1,5 +1,6 @@
 # vue2-backend
-
+username: admin
+password: admin
 ## Project setup
 ```
 npm install
